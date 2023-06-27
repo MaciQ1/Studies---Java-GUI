@@ -6,7 +6,7 @@ class PotrawaRozmrazanie extends Potrawa {
         this.mrozone = mrozone;
     }
 
-    public boolean nadajeSieDoRozmrozenia() {
+    public boolean nadajeSieDoRozmrazania() {
         return mrozone;
     }
 

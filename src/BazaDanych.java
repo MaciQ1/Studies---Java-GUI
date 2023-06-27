@@ -33,18 +33,26 @@ public class BazaDanych {
                         int czasMin = Integer.parseInt(zakresCzasu[0].trim());
                         int czasMax = Integer.parseInt(zakresCzasu[1].trim());
 
-                        if (zakresTemperatury[0].endsWith("C")) {
-                            potrawy.add(new PotrawaTemperatura(nazwa, temperaturaMin, temperaturaMax, czasMin, czasMax));
-                        } else if (zakresCzasu[0].endsWith("min")) {
-                            potrawy.add(new PotrawaCzas(nazwa, temperaturaMin, temperaturaMax, czasMin, czasMax));
-                        }
+                        Potrawa potrawa = new Potrawa(nazwa, temperaturaMin, temperaturaMax, czasMin, czasMax) {
+                            @Override
+                            public void gotuj() {
+                                System.out.println("Gotowanie potrawy: " + nazwa);
+                                System.out.println("Temperatura: " + temperaturaMin + "-" + temperaturaMax);
+                                System.out.println("Czas gotowania: " + czasMin + "-" + czasMax);
+                            }
+                        };
+                        potrawy.add(potrawa);
+                    } else {
+                        System.out.println("Błąd odczytu danych dla potrawy: " + nazwa);
                     }
+                } else {
+                    System.out.println("Błąd odczytu linii: " + linia);
                 }
             }
 
             scanner.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Nie znaleziono pliku: " + nazwaPliku);
         }
 
         return potrawy;
