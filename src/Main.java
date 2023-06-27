@@ -28,6 +28,18 @@ public class Main {
         while (wybor != 0) {
             if (wybor >= 1 && wybor <= potrawy.size()) {
                 Potrawa wybranaPotrawa = potrawy.get(wybor - 1);
+
+                System.out.print("Podaj temperaturę: ");
+                int temperatura = scanner.nextInt();
+                scanner.nextLine(); // Pobierz znak nowej linii
+
+                System.out.print("Podaj czas: ");
+                int czas = scanner.nextInt();
+                scanner.nextLine(); // Pobierz znak nowej linii
+
+                wybranaPotrawa.setTemperatura(temperatura);
+                wybranaPotrawa.setCzas(czas);
+
                 kuchenka.gotujPotrawe(wybranaPotrawa);
                 System.out.println();
             } else {
