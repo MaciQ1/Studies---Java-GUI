@@ -1,20 +1,38 @@
 // Klasa abstrakcyjna reprezentująca potrawę
-public class Potrawa {
-    protected int temperatura;
-    protected int czasGotowania;
+abstract class Potrawa {
+    protected String nazwa;
+    protected int temperaturaMin;
+    protected int temperaturaMax;
+    protected int czasMin;
+    protected int czasMax;
 
-    public Potrawa(int temperatura, int czasGotowania) {
-        this.temperatura = temperatura;
-        this.czasGotowania = czasGotowania;
+    public Potrawa(String nazwa, int temperaturaMin, int temperaturaMax, int czasMin, int czasMax) {
+        this.nazwa = nazwa;
+        this.temperaturaMin = temperaturaMin;
+        this.temperaturaMax = temperaturaMax;
+        this.czasMin = czasMin;
+        this.czasMax = czasMax;
     }
 
     public abstract void gotuj();
 
-    public int getTemperatura() {
-        return temperatura;
+    public String getNazwa() {
+        return nazwa;
     }
 
-    public int getCzasGotowania() {
-        return czasGotowania;
+    public int getTemperaturaMin() {
+        return temperaturaMin;
+    }
+
+    public int getTemperaturaMax() {
+        return temperaturaMax;
+    }
+
+    public int getCzasMin() {
+        return czasMin;
+    }
+
+    public int getCzasMax() {
+        return czasMax;
     }
 }
