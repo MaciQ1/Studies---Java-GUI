@@ -1,5 +1,5 @@
 // Klasa abstrakcyjna reprezentująca potrawę
-abstract class Potrawa {
+public class Potrawa {
     protected int temperatura;
     protected int czasGotowania;
 
