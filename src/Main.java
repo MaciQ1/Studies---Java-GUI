@@ -33,9 +33,10 @@ class Main {
                     System.out.print("Podaj czas: ");
                     int czas = scanner.nextInt();
 
-                    if (temperatura < wybranaPotrawa.getTemperaturaMin() || temperatura > wybranaPotrawa.getTemperaturaMax()
-                            || czas < wybranaPotrawa.getCzasMin() || czas > wybranaPotrawa.getCzasMax()) {
+                    if (temperatura > wybranaPotrawa.getTemperaturaMax() || czas > wybranaPotrawa.getCzasMax()) {
                         System.out.println("Potrawa spaliła się");
+                    } else if (temperatura < wybranaPotrawa.getTemperaturaMin() || czas < wybranaPotrawa.getCzasMin()){
+                        System.out.println("Potrawa nie jest gotowa");
                     } else {
                         System.out.println("Potrawa gotowa");
                     }
