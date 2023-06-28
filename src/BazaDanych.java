@@ -37,8 +37,8 @@ public class BazaDanych {
                             @Override
                             public void gotuj() {
                                 System.out.println("Gotowanie potrawy: " + nazwa);
-                                System.out.println("Temperatura: " + temperaturaMin + "-" + temperaturaMax);
-                                System.out.println("Czas gotowania: " + czasMin + "-" + czasMax);
+                                System.out.println("Zalecana temperatura: " + temperaturaMin + "-" + temperaturaMax);
+                                System.out.println("Zalecany czas gotowania: " + czasMin + "-" + czasMax);
                             }
                         };
                         potrawy.add(potrawa);

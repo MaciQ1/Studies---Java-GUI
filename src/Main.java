@@ -27,10 +27,10 @@ class Main {
 
                     System.out.println("Wybrano potrawę: " + wybranaPotrawa.getNazwa());
 
-                    System.out.print("Podaj temperaturę: ");
+                    System.out.print("Podaj temperaturę(w stopniach C): ");
                     int temperatura = scanner.nextInt();
 
-                    System.out.print("Podaj czas: ");
+                    System.out.print("Podaj czas(w min): ");
                     int czas = scanner.nextInt();
 
                     if (temperatura > wybranaPotrawa.getTemperaturaMax() || czas > wybranaPotrawa.getCzasMax()) {
