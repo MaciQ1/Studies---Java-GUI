@@ -47,7 +47,7 @@ class Main {
                 }
             } else {
                 System.out.println("Nieprawidłowe dane wejściowe");
-                scanner.next(); // Pomija nieprawidłowe dane wejściowe
+                scanner.next();
             }
         }
 
