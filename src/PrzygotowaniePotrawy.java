@@ -51,11 +51,17 @@ public class PrzygotowaniePotrawy extends JFrame{
                 if (!nazwaPotrawy.isEmpty()) {
                     if (czyPotrawaZnajdujeSieWBazieDanychDoPotrawy(nazwaPotrawy)) {
                         if (Temperatura > TemperaturaMax || Czas > CzasMax) {
-                            System.out.println("Potrawa spaliła się");
+                            JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                    "Potrawa spaliła się", "Uwaga",
+                                    JOptionPane.INFORMATION_MESSAGE);
                         } else if (Temperatura < TemperaturaMin || Czas < CzasMin){
-                            System.out.println("Potrawa nie jest gotowa");
+                            JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                    "Potrawa nie jest gotowa", "Uwaga",
+                                    JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            System.out.println("Potrawa gotowa");
+                            JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                    "Potrawa jest gotowa", "Sukces",
+                                    JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
