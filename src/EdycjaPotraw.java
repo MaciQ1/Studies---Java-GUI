@@ -31,7 +31,7 @@ public class EdycjaPotraw extends JFrame {
         super("Program Kuchenka Mikrofalowa - Edytowanie potraw w bazie");
         this.setContentPane(this.JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(600, 300);
         this.setLocationRelativeTo(null);
         iconLabel.setIcon(resize(iconDish, 60, 60));
 
@@ -45,7 +45,7 @@ public class EdycjaPotraw extends JFrame {
                 String czasMax = (CzasMaxField.getText());
 
                 if (!nazwaPotrawy.isEmpty() && !temperaturaMin.isEmpty() && !temperaturaMax.isEmpty() && !czasMin.isEmpty() && !czasMax.isEmpty()) {
-                    if (czyPotrawaZnajdujeSieWBazieDanych(nazwaPotrawy, temperaturaMin, temperaturaMax, czasMin, czasMax)) {
+                    if (czyPotrawaZnajdujeSieWBazieDanych(nazwaPotrawy)) {
 
                         JOptionPane.showMessageDialog(EdycjaPotraw.this,
                                 "Ta potrawa została już wcześniej wprowadzona do bazy danych.", "Uwaga",
@@ -71,7 +71,7 @@ public class EdycjaPotraw extends JFrame {
                 String czasMax = (CzasMaxField.getText());
 
                 if (!nazwaPotrawy.isEmpty()) {
-                    if (czyPotrawaZnajdujeSieWBazieDanych(nazwaPotrawy, temperaturaMin, temperaturaMax, czasMin, czasMax)) {
+                    if (czyPotrawaZnajdujeSieWBazieDanych(nazwaPotrawy)) {
                         if (usunPotraweZBazyDanych(nazwaPotrawy, temperaturaMin, temperaturaMax, czasMin, czasMax)) {
                             JOptionPane.showMessageDialog(EdycjaPotraw.this,
                                     "Potrawa została pomyślnie usunięta z bazy danych.", "Sukces",
@@ -122,13 +122,13 @@ public class EdycjaPotraw extends JFrame {
     }
 
 
-    public boolean czyPotrawaZnajdujeSieWBazieDanych(String nazwaPotrawy, String temperaturaMin, String temperaturaMax, String czasMin, String czasMax) {
+    public boolean czyPotrawaZnajdujeSieWBazieDanych(String nazwaPotrawy) {
         File plik = new File("BazaDoProjektuZPO.txt");
         if (plik.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(plik))) {
                 String aktualnaLinia;
                 while ((aktualnaLinia = reader.readLine()) != null) {
-                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy) && aktualnaLinia.split(",")[1].equals(temperaturaMin) && aktualnaLinia.split(",")[2].equals(temperaturaMax) && aktualnaLinia.split(",")[3].equals(czasMin) && aktualnaLinia.split(",")[4].equals(czasMax)) {
+                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy)) {
                         return true;
                     }
                 }

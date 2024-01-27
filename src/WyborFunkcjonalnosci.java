@@ -24,7 +24,7 @@ public class WyborFunkcjonalnosci extends JFrame{
         super("Program Kuchenka Mikrofalowa - Wybór funkcjonalności");
         this.setContentPane(this.JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(600, 300);
         this.setLocationRelativeTo(null);
         iconLabel1.setIcon(resize(iconMicrowave, 60, 60));
         iconLabel2.setIcon(resize(iconDish, 60, 60));

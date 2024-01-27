@@ -19,15 +19,15 @@ public class PrzygotowaniePotrawy extends JFrame{
     private JPanel JPanel5;
     private JLabel NazwaLabel;
     private JPanel JPanel6;
-    private JTextField CzasMinField;
-    private JTextField TemperaturaMinField;
-    private JTextField CzasMaxField;
-    private JTextField TemperaturaMaxField;
-    private JLabel TemperaturaMinLabel;
-    private JLabel TemperaturaMaxLabel;
-    private JLabel CzasMinLabel;
-    private JLabel CzasMaxLabel;
+    private JTextField CzasField;
+    private JTextField TemperaturaField;
+    private JLabel TemperaturaLabel;
+    private JLabel CzasLabel;
     private JTextField NazwaField;
+    private int TemperaturaMin;
+    private int TemperaturaMax;
+    private int CzasMin;
+    private int CzasMax;
     private ImageIcon iconMicrowave = new ImageIcon(getClass().getResource("microwave-oven.png"));
 
 
@@ -35,7 +35,7 @@ public class PrzygotowaniePotrawy extends JFrame{
         super("Program Kuchenka Mikrofalowa - Przygotowanie potrawy");
         this.setContentPane(this.JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        this.setSize(600, 300);
         this.setLocationRelativeTo(null);
         iconLabel.setIcon(resize(iconMicrowave, 60, 60));
 
@@ -44,17 +44,19 @@ public class PrzygotowaniePotrawy extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nazwaPotrawy = NazwaField.getText();
-                String temperaturaMin = (TemperaturaMinField.getText());
-                String temperaturaMax = (TemperaturaMaxField.getText());
-                String czasMin = (CzasMinField.getText());
-                String czasMax = (CzasMaxField.getText());
+                int Temperatura = Integer.parseInt(TemperaturaField.getText());
+                int Czas = Integer.parseInt(CzasField.getText());
 
-                if (!nazwaPotrawy.isEmpty() && !temperaturaMin.isEmpty() && !temperaturaMax.isEmpty() && !czasMin.isEmpty() && !czasMax.isEmpty()) {
-                    if (czyPotrawaZnajdujeSieWBazieDanych(nazwaPotrawy, temperaturaMin, temperaturaMax, czasMin, czasMax)) {
 
-                        JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                                "Ta potrawa została już wcześniej wprowadzona do bazy danych.", "Uwaga",
-                                JOptionPane.INFORMATION_MESSAGE);
+                if (!nazwaPotrawy.isEmpty()) {
+                    if (czyPotrawaZnajdujeSieWBazieDanychDoPotrawy(nazwaPotrawy)) {
+                        if (Temperatura > TemperaturaMax || Czas > CzasMax) {
+                            System.out.println("Potrawa spaliła się");
+                        } else if (Temperatura < TemperaturaMin || Czas < CzasMin){
+                            System.out.println("Potrawa nie jest gotowa");
+                        } else {
+                            System.out.println("Potrawa gotowa");
+                        }
                     } else {
                         JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
                                 "Potrawy nie ma w bazie danych!", "Błąd",
@@ -82,13 +84,19 @@ public class PrzygotowaniePotrawy extends JFrame{
     }
 
 
-    public boolean czyPotrawaZnajdujeSieWBazieDanych(String nazwaPotrawy, String temperaturaMin, String temperaturaMax, String czasMin, String czasMax) {
+
+    public boolean czyPotrawaZnajdujeSieWBazieDanychDoPotrawy(String nazwaPotrawy) {
         File plik = new File("BazaDoProjektuZPO.txt");
         if (plik.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(plik))) {
                 String aktualnaLinia;
                 while ((aktualnaLinia = reader.readLine()) != null) {
-                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy) && aktualnaLinia.split(",")[1].equals(temperaturaMin) && aktualnaLinia.split(",")[2].equals(temperaturaMax) && aktualnaLinia.split(",")[3].equals(czasMin) && aktualnaLinia.split(",")[4].equals(czasMax)) {
+                    String[] dane = aktualnaLinia.split(",");
+                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy)) {
+                        TemperaturaMin = Integer.parseInt(dane[1]);
+                        TemperaturaMax = Integer.parseInt(dane[2]);
+                        CzasMin = Integer.parseInt(dane[3]);
+                        CzasMax = Integer.parseInt(dane[4]);
                         return true;
                     }
                 }
