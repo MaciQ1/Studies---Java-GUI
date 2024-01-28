@@ -115,14 +115,14 @@ public class PrzygotowaniePotrawy extends JFrame{
         File plik = new File("BazaDoProjektuZPO.txt");
         if (plik.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(plik))) {
-                String aktualnaLinia;
-                while ((aktualnaLinia = reader.readLine()) != null) {
-                    String[] dane = aktualnaLinia.trim().split("\\s*,\\s*"); // Uwzględnia białe znaki przed i po przecinkach
-                    if (dane[0].equals(nazwaPotrawy)) {
-                        TemperaturaMin = Integer.parseInt(dane[1]);
-                        TemperaturaMax = Integer.parseInt(dane[2]);
-                        CzasMin = Integer.parseInt(dane[3]);
-                        CzasMax = Integer.parseInt(dane[4]);
+                String Linia;
+                while ((Linia = reader.readLine()) != null) {
+                    String[] danePojemnik = Linia.trim().split("\\s*,\\s*"); // Uwzględnia białe znaki przed i po przecinkach
+                    if (danePojemnik[0].equals(nazwaPotrawy)) {
+                        TemperaturaMin = Integer.parseInt(danePojemnik[1]);
+                        TemperaturaMax = Integer.parseInt(danePojemnik[2]);
+                        CzasMin = Integer.parseInt(danePojemnik[3]);
+                        CzasMax = Integer.parseInt(danePojemnik[4]);
                         return true;
                     }
                 }

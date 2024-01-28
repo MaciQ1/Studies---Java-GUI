@@ -126,9 +126,9 @@ public class EdycjaPotraw extends JFrame {
         File plik = new File("BazaDoProjektuZPO.txt");
         if (plik.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(plik))) {
-                String aktualnaLinia;
-                while ((aktualnaLinia = reader.readLine()) != null) {
-                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy)) {
+                String Linia;
+                while ((Linia = reader.readLine()) != null) {
+                    if (Linia.split(",")[0].equals(nazwaPotrawy)) {
                         return true;
                     }
                 }
@@ -147,13 +147,13 @@ public class EdycjaPotraw extends JFrame {
                 BufferedReader reader = new BufferedReader(new FileReader(plik));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(temporaryFile));
 
-                String aktualnaLinia;
-                while ((aktualnaLinia = reader.readLine()) != null) {
-                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy) && aktualnaLinia.split(",")[1].equals(temperaturaMin) && aktualnaLinia.split(",")[2].equals(temperaturaMax) && aktualnaLinia.split(",")[3].equals(czasMin) && aktualnaLinia.split(",")[4].equals(czasMax)) {
+                String Linia;
+                while ((Linia = reader.readLine()) != null) {
+                    if (Linia.split(",")[0].equals(nazwaPotrawy) && Linia.split(",")[1].equals(temperaturaMin) && Linia.split(",")[2].equals(temperaturaMax) && Linia.split(",")[3].equals(czasMin) && Linia.split(",")[4].equals(czasMax)) {
 
                         continue;
                     }
-                    writer.write(aktualnaLinia + System.getProperty("line.separator"));
+                    writer.write(Linia + System.getProperty("line.separator"));
                 }
 
                 reader.close();
