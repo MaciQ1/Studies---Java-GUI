@@ -43,38 +43,58 @@ public class PrzygotowaniePotrawy extends JFrame{
         StartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nazwaPotrawy = NazwaField.getText();
-                int Temperatura = Integer.parseInt(TemperaturaField.getText());
-                int Czas = Integer.parseInt(CzasField.getText());
+                try {
+                    String nazwaPotrawy = NazwaField.getText().trim();
+                    if (!nazwaPotrawy.isEmpty()) {
+                        if (czyPotrawaZnajdujeSieWBazieDanychDoPotrawy(nazwaPotrawy)) {
+                            int Temperatura = 0;
+                            int Czas = 0;
+                            boolean inputValid = true;
 
+                            try {
+                                Temperatura = Integer.parseInt(TemperaturaField.getText().trim());
+                                Czas = Integer.parseInt(CzasField.getText().trim());
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                        "Temperatura i czas muszą być liczbami!", "Błąd formatu",
+                                        JOptionPane.ERROR_MESSAGE);
+                                inputValid = false;
+                            }
 
-                if (!nazwaPotrawy.isEmpty()) {
-                    if (czyPotrawaZnajdujeSieWBazieDanychDoPotrawy(nazwaPotrawy)) {
-                        if (Temperatura > TemperaturaMax || Czas > CzasMax) {
-                            JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                                    "Potrawa spaliła się", "Uwaga",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        } else if (Temperatura < TemperaturaMin || Czas < CzasMin){
-                            JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                                    "Potrawa nie jest gotowa", "Uwaga",
-                                    JOptionPane.INFORMATION_MESSAGE);
+                            if (inputValid) {
+                                if (Temperatura > TemperaturaMax || Czas > CzasMax) {
+                                    JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                            "Potrawa spaliła się", "Uwaga",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                } else if (Temperatura < TemperaturaMin || Czas < CzasMin) {
+                                    JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                            "Potrawa nie jest gotowa", "Uwaga",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
+                                            "Potrawa jest gotowa", "Sukces",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                }
+                            }
                         } else {
                             JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                                    "Potrawa jest gotowa", "Sukces",
-                                    JOptionPane.INFORMATION_MESSAGE);
+                                    "Potrawy nie ma w bazie danych!", "Błąd",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                                "Potrawy nie ma w bazie danych!", "Błąd",
+                                "Nie wypełniłeś wszystkich pól!", "Błąd",
                                 JOptionPane.ERROR_MESSAGE);
                     }
-                } else {
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(PrzygotowaniePotrawy.this,
-                            "Nie wypełniłeś wszystkich pól!", "Błąd",
+                            "Wystąpił błąd: " + ex.getMessage(), "Błąd",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
 
 
 
@@ -97,8 +117,8 @@ public class PrzygotowaniePotrawy extends JFrame{
             try (BufferedReader reader = new BufferedReader(new FileReader(plik))) {
                 String aktualnaLinia;
                 while ((aktualnaLinia = reader.readLine()) != null) {
-                    String[] dane = aktualnaLinia.split(",");
-                    if (aktualnaLinia.split(",")[0].equals(nazwaPotrawy)) {
+                    String[] dane = aktualnaLinia.trim().split("\\s*,\\s*"); // Uwzględnia białe znaki przed i po przecinkach
+                    if (dane[0].equals(nazwaPotrawy)) {
                         TemperaturaMin = Integer.parseInt(dane[1]);
                         TemperaturaMax = Integer.parseInt(dane[2]);
                         CzasMin = Integer.parseInt(dane[3]);
@@ -112,6 +132,7 @@ public class PrzygotowaniePotrawy extends JFrame{
         }
         return false;
     }
+
 
 
     private static ImageIcon resize(ImageIcon src, int destWidth, int destHeight) {
